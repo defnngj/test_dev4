@@ -19,7 +19,7 @@ def index(request):
     """
     # 返回登录页面
     if request.method == "GET":
-        return render(request, "index.html")
+        return render(request, "login.html")
 
     # 处理登录的数据
     if request.method == "POST":
@@ -28,15 +28,18 @@ def index(request):
 
         print("__>", username, password)
         if username == "" or password == "":
-            return render(request, "index.html", {"error": "The username or password is empty"})
+            return render(request, "login.html", {"error": "The username or password is empty"})
 
         user = auth.authenticate(username=username, password=password)
         print("==>", user)
         if user is not None:
             auth.login(request, user)  # 到数据库写 session_key
-            return HttpResponseRedirect("/manage/")
+            response = HttpResponseRedirect("/manage/")
+            # response.set_cookie("user", username, 3600)
+            request.session['user'] = username
+            return response
         else:
-            return render(request, "index.html", {"error": "Wrong user name or password!"})
+            return render(request, "login.html", {"error": "Wrong user name or password!"})
 
 
 @login_required  # 控制用户在未登录的情况下不能进入
@@ -44,7 +47,9 @@ def manage(request):
     """
     管理页面
     """
-    return render(request, "manage.html")
+    # username = request.COOKIES.get('user', '')
+    username = request.session.get('user', '')
+    return render(request, "manage2.html", {"user": username})
 
 
 @login_required

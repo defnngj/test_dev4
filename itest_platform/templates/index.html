@@ -3,16 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    {% load static %}
+    <link rel="stylesheet"  type="text/css" href="{% static "my.css" %}">
+    <link rel="stylesheet" href="{% static "bootstrap.min.css" %}" crossorigin="anonymous">
 </head>
 <body>
 
-<form method="post" action="/index/">
-    username: <input type="text" name="username"><br>
-    password: <input type="password" name="password"> <br>
-    {{ error }} <br>
-    {% csrf_token %}
-    <input type="submit" value="login">
-</form>
+<div class="container">
+    <form method="post" action="/index/" class="form-signin" style="
+    margin-left: 300px;
+    margin-right: 300px;">
+        <h2 class="form-signin-heading">登录</h2>
+        <input type="text" name="username" class="form-control"><br>
+        
+        <input type="password" name="password" class="form-control"><br>
+        {{ error }} <br>
+        {% csrf_token %}
+        <input type="submit" value="login" class="btn btn-lg btn-primary btn-block">
+    </form>
+</div>
+
 
 </body>
 </html>
