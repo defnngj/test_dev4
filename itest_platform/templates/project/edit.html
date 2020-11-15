@@ -1,7 +1,7 @@
 {% extends "navigation.html" %}
 
 {% block navigation %}
-<!-- 这个一部分属于 add.html 文件 -->
+<!-- 这个一部分属于 edit.html 文件 -->
 <!-- Start Content-->
 <div class="container-fluid">
 
@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box">
-                <h4 class="page-title">添加项目</h4>
+                <h4 class="page-title">更新项目</h4>
             </div>
         </div>
     </div>
@@ -54,7 +54,7 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <!-- {{ form.name }} <br> -->
-                        <form action="/manage/project_add/" method="post">
+                        <form action="/manage/project_edit/{{pid}}/" method="post">
                             <label>名称:</label>
                             {{ form.name }} <br>
                             <label>描述:</label>
@@ -62,7 +62,7 @@
                            <label>状态:</label>
                             {{form.status}}<br>
                            <br>
-                           <input type="submit" class="btn btn-primary" value="创建">
+                           <input type="submit" class="btn btn-primary" value="更新">
                        </form>
                     </div> <!-- end table-responsive-->
                 </div> <!-- end card-body-->

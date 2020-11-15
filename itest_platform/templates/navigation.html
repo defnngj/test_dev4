@@ -1,0 +1,337 @@
+{% extends "base.html" %}
+
+{% block base %}
+        <!-- 这一个部分是在 navigation.html文件当中的 -->
+        <!-- Begin page -->
+        <div class="wrapper">
+            <!-- ========== Left Sidebar Start ========== -->
+            <div class="left-side-menu">
+
+                <!-- LOGO -->
+                <a href="index.html" class="logo text-center logo-light">
+                    <span class="logo-lg">
+                        <img src="https://coderthemes.com/hyper/saas/assets/images/logo.png" alt="" height="16">
+                    </span>
+                    <span class="logo-sm">
+                        <img src="assets/images/logo_sm.png" alt="" height="16">
+                    </span>
+                </a>
+
+                <!-- LOGO -->
+                <a href="index.html" class="logo text-center logo-dark">
+                    <span class="logo-lg">
+                        <img src="assets/images/logo-dark.png" alt="" height="16">
+                    </span>
+                    <span class="logo-sm">
+                        <img src="assets/images/logo_sm_dark.png" alt="" height="16">
+                    </span>
+                </a>
+
+                <div class="h-100" id="left-side-menu-container" data-simplebar>
+
+                    <!--- Sidemenu -->
+                    <ul class="metismenu side-nav">
+
+                        <li class="side-nav-title side-nav-item"> 测试接口 </li>
+
+                        <li class="side-nav-item">
+                            <a href="javascript: void(0);" class="side-nav-link">
+                                <svg t="1605423180230" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5087" width="16" height="16"><path d="M912.672138 94.488178c-8.524813-8.524813-17.049627-25.57444-34.099253-34.099253-8.524813-8.524813-17.049627-25.57444-25.574439-34.099253a46.886473 46.886473 0 0 0-42.624067-25.57444H247.736704a63.879267 63.879267 0 0 0-42.624066 8.524813c-8.524813 8.524813-17.049627 8.524813-25.57444 17.049627l-25.574439 25.574439-42.624067 42.624067c-8.524813 17.049627-25.57444 34.099253-34.099253 51.148879h878.055766c-17.049627-17.049627-25.57444-34.099253-42.624067-51.148879z m8.524814 571.162488H102.814879a104.201634 104.201634 0 0 0-76.723319 25.57444 113.380016 113.380016 0 0 0-25.57444 68.198506v161.971451a83.088513 83.088513 0 0 0 34.099253 76.72332 96.785047 96.785047 0 0 0 68.198506 25.57444h809.857259a104.201634 104.201634 0 0 0 76.72332-25.57444 96.785047 96.785047 0 0 0 25.574439-68.198506v-170.496265a96.785047 96.785047 0 0 0-25.574439-68.198506c-8.524813-17.049627-34.099253-25.57444-68.198506-25.57444zM597.254048 870.246184c-8.524813 8.524813-8.524813 8.524813-17.049627 8.524813h-127.872198a31.257649 31.257649 0 0 1-25.57444-8.524813c0-8.524813-8.524813-17.049627-8.524813-25.57444s0-17.049627 8.524813-17.049626c8.524813-8.524813 8.524813-8.524813 25.57444-8.524814h119.347385c8.524813 0 17.049627 0 17.049627 8.524814 8.524813 8.524813 8.524813 8.524813 8.524813 17.049626 8.524813 8.524813 0 17.049627 0 25.57444zM997.920271 264.984443a104.201634 104.201634 0 0 0-76.723319-25.57444H102.814879a104.201634 104.201634 0 0 0-76.723319 25.57444 77.376888 77.376888 0 0 0-25.57444 59.673693v170.496265a96.813463 96.813463 0 0 0 25.57444 68.198506 104.201634 104.201634 0 0 0 76.723319 25.57444h818.382073a104.201634 104.201634 0 0 0 76.723319-25.57444 96.813463 96.813463 0 0 0 25.57444-68.198506v-170.496265a77.376888 77.376888 0 0 0-25.57444-59.673693z m-426.240663 179.021078h-119.347385c-8.524813 0-17.049627 0-17.049627-8.524813a65.555814 65.555814 0 0 1-17.049626-25.57444c0-8.524813 0-17.049627 8.524813-17.049626 8.524813-8.524813 8.524813-8.524813 25.57444-8.524814h119.347385c8.524813 0 17.049627 0 17.049627 8.524814a18.328349 18.328349 0 0 1 17.049626 17.049626c-8.524813 25.57444-17.049627 34.099253-34.099253 34.099253z" p-id="5088"></path></svg>
+                                <span>&nbsp;&nbsp;项目管理 </span>
+                            </a>
+                        </li>
+
+
+
+                        <li class="side-nav-item">
+                            <a href="apps-calendar.html" class="side-nav-link">
+                                <svg t="1605422880996" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1436" width="16" height="16"><path d="M792.9 482.2H405.8c-11.4 0-21.2 9.8-21.2 21.2 0 11.4 9.8 21.2 21.2 21.2h387.1c11.4 0 21.2-9.8 21.2-21.2 0-13-9.8-21.2-21.2-21.2z m0 178.1H405.8c-11.4 0-21.2 9.8-21.2 21.2s9.8 21.2 21.2 21.2h387.1c11.4 0 21.2-9.8 21.2-21.2s-9.8-21.2-21.2-21.2zM904 248.7H626.3l-4.9-13.1c-32.7-91.5-96.4-114.3-143.7-116H118.4c-31 0-55.5 24.5-55.5 53.9v681.1c0 29.4 24.5 53.9 55.5 53.9H904c31 0 55.5-24.5 55.5-53.9v-552c0-29.4-24.5-53.9-55.5-53.9z m-785.6-50.6c0-42.5 14.7-35.9 76.8-35.9h222.1c94.7 0 119.2 21.2 137.2 52.3l13.1 32.7H118.4v-49.1z m788.8 597.7c0 62.1-21.2 63.7-73.5 63.7H191.9c-63.7 0-73.5-4.9-73.5-73.5V299.3h728.4c68.6 0 60.4 26.1 60.4 73.5v423z m-699-329.9h68.6v68.6h-68.6v-68.6z m0 181.3h68.6v68.6h-68.6v-68.6z m0 0" p-id="1437"></path></svg>
+                                <span> &nbsp;&nbsp;模块管理 </span>
+                            </a>
+                        </li>
+
+                        <li class="side-nav-item">
+                            <a href="apps-chat.html" class="side-nav-link">
+                                <svg t="1605422925370" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1826" width="16" height="16"><path d="M853.333333 0h-512C273.066667 0 213.333333 59.733333 213.333333 128v597.333333c0 68.266667 59.733333 128 128 128h512c68.266667 0 128-59.733333 128-128v-597.333333C981.333333 59.733333 921.6 0 853.333333 0z m42.666667 725.333333c0 25.6-17.066667 42.666667-42.666667 42.666667h-512c-25.6 0-42.666667-17.066667-42.666666-42.666667v-597.333333c0-25.6 17.066667-42.666667 42.666666-42.666667h512c25.6 0 42.666667 17.066667 42.666667 42.666667v597.333333zM768 512h-341.333333c-25.6 0-42.666667 17.066667-42.666667 42.666667s17.066667 42.666667 42.666667 42.666666h341.333333c25.6 0 42.666667-17.066667 42.666667-42.666666S793.6 512 768 512z m-256-85.333333h170.666667c25.6 0 42.666667-17.066667 42.666666-42.666667S708.266667 341.333333 682.666667 341.333333h-170.666667c-25.6 0-42.666667 17.066667-42.666667 42.666667s17.066667 42.666667 42.666667 42.666667z m341.333333 512h-682.666666c-25.6 0-42.666667-17.066667-42.666667-42.666667v-682.666667C128 187.733333 110.933333 170.666667 85.333333 170.666667s-42.666667 17.066667-42.666666 42.666666v682.666667c0 68.266667 59.733333 128 128 128h682.666666c25.6 0 42.666667-17.066667 42.666667-42.666667s-17.066667-42.666667-42.666667-42.666666z" p-id="1827"></path></svg>
+                                <span> &nbsp;&nbsp;用例管理 </span>
+                            </a>
+                        </li>
+
+                        <li class="side-nav-item">
+                            <a href="javascript: void(0);" class="side-nav-link">
+                                <svg t="1605422952250" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2699" width="16" height="16"><path d="M160.9 346H863c52.8 0 95.7-42.9 95.7-95.7s-42.9-95.7-95.7-95.7H160.9c-52.8 0-95.7 42.9-95.7 95.7s42.9 95.7 95.7 95.7z m473.4-127.7h228.8c17.6 0 31.9 14.3 31.9 31.9 0 17.6-14.3 31.9-31.9 31.9H634.3v-63.8zM863.1 416.8H160.9c-52.8 0-95.7 42.9-95.7 95.7s42.9 95.7 95.7 95.7H863c52.8 0 95.7-42.9 95.7-95.7s-42.8-95.7-95.6-95.7z m0 127.6H506.6v-63.8H863c17.6 0 31.9 14.3 31.9 31.9s-14.2 31.9-31.8 31.9zM863.1 678H160.9c-52.8 0-95.7 42.9-95.7 95.7 0 52.8 42.9 95.7 95.7 95.7H863c52.8 0 95.7-42.9 95.7-95.7 0.1-52.7-42.8-95.7-95.6-95.7z m0 127.7h-165v-63.8H863c17.6 0 31.9 14.3 31.9 31.9 0.1 17.6-14.2 31.9-31.8 31.9z" p-id="2700"></path></svg>
+                                <span> &nbsp;&nbsp;任务管理 </span>
+                            </a>
+                        </li>
+
+                        <li class="side-nav-title side-nav-item"> 测试工具 </li>
+
+                        <li class="side-nav-item">
+                            <a href="javascript: void(0);" class="side-nav-link">
+                                <svg t="1605423002016" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3237" width="16" height="16"><path d="M684.747659 239.176596h81.626626c30.050178 0 54.389775 24.456364 54.389775 54.623307h-0.029191v277.283616a240.503591 240.503591 0 0 1 54.47735 34.948262V293.770711c0-60.335103-48.736362-109.217423-108.865909-109.217423h-81.627842l-381.016694 0.029192H222.073932C161.944386 184.58248 113.208023 233.435608 113.208023 293.799903v546.29267c0 60.335103 48.736362 109.246614 108.865909 109.246614h318.368167a240.720094 240.720094 0 0 1-36.822597-54.622091H222.073932c-30.079369 0-54.418967-24.428389-54.418967-54.624523V293.799903c0-30.166943 24.339598-54.623307 54.418967-54.623307H684.747659z" fill="#272536" p-id="3238"></path><path d="M276.52209 758.084025c0 15.113879 12.125404 27.354833 27.179684 27.354833h175.559886c0.282184-18.821195 2.72332-37.116944 7.094741-54.651282H303.701774c-15.05428 0.001216-27.179684 12.18257-27.179684 27.296449zM684.718468 457.669824H303.701774c-15.05428 0-27.179684 12.185003-27.179684 27.326857 0 15.083472 12.125404 27.297666 27.179684 27.297666h381.016694c15.026305 0 27.208875-12.214194 27.208875-27.297666 0-15.141855-12.18257-27.326857-27.208875-27.326857zM527.41176 336.044813H303.701774c-15.05428 0-27.179684 12.185003-27.179684 27.326858 0 15.083472 12.125404 27.297666 27.179684 27.297666h223.709986c15.026305 0 27.208875-12.214194 27.208875-27.297666 0-15.141855-12.18257-27.326857-27.208875-27.326858zM276.52209 621.540961c0 15.111447 12.125404 27.295233 27.179684 27.295234H524.394093a241.69071 241.69071 0 0 1 54.569789-54.653715H303.701774c-15.05428 0.001216-27.179684 12.245818-27.179684 27.358481zM855.404595 656.862631c-75.020841-72.987169-196.706667-72.987169-271.727508 0-75.020841 73.027308-75.020841 191.391388 0 264.462483 75.022058 73.027308 196.707883 73.027308 271.727508 0 75.020841-73.069878 75.020841-191.435176 0-264.462483z m-38.983981 36.908954c47.16124 45.876815 52.975206 116.743955 17.437033 168.806928L642.921159 676.791885c53.556602-34.583368 126.377137-28.937253 173.499455 16.9797zM621.5822 883.42c-47.162456-45.958308-52.933851-116.82788-17.437033-168.889636l190.893917 185.870553c-53.473893 34.500659-126.294428 28.895899-173.456884-16.980917z" fill="#272536" p-id="3239"></path></svg>
+                                <span> &nbsp;&nbsp;mock </span>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    <!-- End Sidebar -->
+
+                    <div class="clearfix"></div>
+
+                </div>
+                <!-- Sidebar -left -->
+
+            </div>
+            <!-- Left Sidebar End -->
+
+            <!-- ============================================================== -->
+            <!-- Start Page Content here -->
+            <!-- ============================================================== -->
+
+            <div class="content-page">
+                <div class="content">
+                    <!-- Topbar Start -->
+                    <div class="navbar-custom">
+                        <ul class="list-unstyled topbar-right-menu float-right mb-0">
+                            <li class="dropdown notification-list d-lg-none">
+                                <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                    <i class="dripicons-search noti-icon"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-animated dropdown-lg p-0">
+                                    <form class="p-3">
+                                        <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
+                                    </form>
+                                </div>
+                            </li>
+
+
+                            <li class="dropdown notification-list">
+                                <a class="nav-link dropdown-toggle nav-user arrow-none mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                                    aria-expanded="false">
+                                    <span>
+                                        <span class="account-user-name">welcome, {{ user }}</span>
+                                    </span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
+
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                        <i class="mdi mdi-account-edit mr-1"></i>
+                                        <span>Settings</span>
+                                    </a>
+
+                                    <!-- item-->
+                                    <a href="/logout/" class="dropdown-item notify-item">
+                                        <i class="mdi mdi-logout mr-1"></i>
+                                        <span>logout</span>
+                                    </a>
+
+                                </div>
+                            </li>
+
+                        </ul>
+                        <button class="button-menu-mobile open-left disable-btn">
+                            <i class="mdi mdi-menu"></i>
+                        </button>
+                        <div class="app-search dropdown d-none d-lg-block">
+                            <form>
+                                <div class="input-group">
+                                    <input type="text" class="form-control dropdown-toggle" placeholder="Search..." id="top-search">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="submit">Search</button>
+                                    </div>
+                                </div>
+
+                            </form>
+
+                            <div class="dropdown-menu dropdown-menu-animated dropdown-lg" id="search-dropdown">
+                                <!-- item-->
+                                <div class="dropdown-header noti-title">
+                                    <h5 class="text-overflow mb-2">Found <span class="text-danger">17</span> results</h5>
+                                </div>
+
+                                <!-- item-->
+                                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                    <i class="uil-notes font-16 mr-1"></i>
+                                    <span>Analytics Report</span>
+                                </a>
+
+                                <!-- item-->
+                                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                    <i class="uil-life-ring font-16 mr-1"></i>
+                                    <span>How can I help you?</span>
+                                </a>
+
+                                <!-- item-->
+                                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                    <i class="uil-cog font-16 mr-1"></i>
+                                    <span>User profile settings</span>
+                                </a>
+
+                                <!-- item-->
+                                <div class="dropdown-header noti-title">
+                                    <h6 class="text-overflow mb-2 text-uppercase">Users</h6>
+                                </div>
+
+                                <div class="notification-list">
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                        <div class="media">
+                                            <img class="d-flex mr-2 rounded-circle" src="assets/images/users/avatar-2.jpg" alt="Generic placeholder image" height="32">
+                                            <div class="media-body">
+                                                <h5 class="m-0 font-14">Erwin Brown</h5>
+                                                <span class="font-12 mb-0">UI Designer</span>
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                        <div class="media">
+                                            <img class="d-flex mr-2 rounded-circle" src="assets/images/users/avatar-5.jpg" alt="Generic placeholder image" height="32">
+                                            <div class="media-body">
+                                                <h5 class="m-0 font-14">Jacob Deo</h5>
+                                                <span class="font-12 mb-0">Developer</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end Topbar -->
+
+                    <!-- 这一个部分是在 navigation.html文件当中的 -->
+                    {% block navigation %}
+                        
+                        <!-- 其他页面集成并展示的内容 -->
+
+                    {% endblock %}
+                </div>
+                <!-- content -->
+
+                <!-- Footer Start -->
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <script>document.write(new Date().getFullYear())</script> © Hyper - Coderthemes.com
+                            </div>
+                            <div class="col-md-6">
+                                <div class="text-md-right footer-links d-none d-md-block">
+                                    <a href="javascript: void(0);">About</a>
+                                    <a href="javascript: void(0);">Support</a>
+                                    <a href="javascript: void(0);">Contact Us</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                <!-- end Footer -->
+
+            </div>
+
+            <!-- ============================================================== -->
+            <!-- End Page content -->
+            <!-- ============================================================== -->
+
+
+        </div>
+        <!-- END wrapper -->
+
+        <!-- Right Sidebar -->
+        <div class="right-bar">
+
+            <div class="rightbar-title">
+                <a href="javascript:void(0);" class="right-bar-toggle float-right">
+                    <i class="dripicons-cross noti-icon"></i>
+                </a>
+                <h5 class="m-0">Settings</h5>
+            </div>
+
+            <div class="rightbar-content h-100" data-simplebar>
+
+                <div class="p-3">
+                    <div class="alert alert-warning" role="alert">
+                        <strong>Customize </strong> the overall color scheme, sidebar menu, etc.
+                    </div>
+
+                    <!-- Settings -->
+                    <h5 class="mt-3">Color Scheme</h5>
+                    <hr class="mt-1" />
+
+                    <div class="custom-control custom-switch mb-1">
+                        <input type="radio" class="custom-control-input" name="color-scheme-mode" value="light"
+                            id="light-mode-check" checked />
+                        <label class="custom-control-label" for="light-mode-check">Light Mode</label>
+                    </div>
+
+                    <div class="custom-control custom-switch mb-1">
+                        <input type="radio" class="custom-control-input" name="color-scheme-mode" value="dark"
+                            id="dark-mode-check" />
+                        <label class="custom-control-label" for="dark-mode-check">Dark Mode</label>
+                    </div>
+
+                    <!-- Width -->
+                    <h5 class="mt-4">Width</h5>
+                    <hr class="mt-1" />
+                    <div class="custom-control custom-switch mb-1">
+                        <input type="radio" class="custom-control-input" name="width" value="fluid" id="fluid-check" checked />
+                        <label class="custom-control-label" for="fluid-check">Fluid</label>
+                    </div>
+                    <div class="custom-control custom-switch mb-1">
+                        <input type="radio" class="custom-control-input" name="width" value="boxed" id="boxed-check" />
+                        <label class="custom-control-label" for="boxed-check">Boxed</label>
+                    </div>
+
+                    <!-- Left Sidebar-->
+                    <h5 class="mt-4">Left Sidebar</h5>
+                    <hr class="mt-1" />
+                    <div class="custom-control custom-switch mb-1">
+                        <input type="radio" class="custom-control-input" name="theme" value="default" id="default-check"
+                            checked />
+                        <label class="custom-control-label" for="default-check">Default</label>
+                    </div>
+
+                    <div class="custom-control custom-switch mb-1">
+                        <input type="radio" class="custom-control-input" name="theme" value="light" id="light-check" />
+                        <label class="custom-control-label" for="light-check">Light</label>
+                    </div>
+
+                    <div class="custom-control custom-switch mb-3">
+                        <input type="radio" class="custom-control-input" name="theme" value="dark" id="dark-check" />
+                        <label class="custom-control-label" for="dark-check">Dark</label>
+                    </div>
+
+                    <div class="custom-control custom-switch mb-1">
+                        <input type="radio" class="custom-control-input" name="compact" value="fixed" id="fixed-check"
+                            checked />
+                        <label class="custom-control-label" for="fixed-check">Fixed</label>
+                    </div>
+
+                    <div class="custom-control custom-switch mb-1">
+                        <input type="radio" class="custom-control-input" name="compact" value="condensed"
+                            id="condensed-check" />
+                        <label class="custom-control-label" for="condensed-check">Condensed</label>
+                    </div>
+
+                    <div class="custom-control custom-switch mb-1">
+                        <input type="radio" class="custom-control-input" name="compact" value="scrollable"
+                            id="scrollable-check" />
+                        <label class="custom-control-label" for="scrollable-check">Scrollable</label>
+                    </div>
+
+                    <button class="btn btn-primary btn-block mt-4" id="resetBtn">Reset to Default</button>
+
+                    <a href="https://themes.getbootstrap.com/product/hyper-responsive-admin-dashboard-template/"
+                        class="btn btn-danger btn-block mt-3" target="_blank"><i class="mdi mdi-basket mr-1"></i> Purchase Now</a>
+                </div> <!-- end padding-->
+
+            </div>
+        </div>
+
+        <div class="rightbar-overlay"></div>
+        <!-- /Right-bar -->
+
+        {% endblock %}
