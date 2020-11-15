@@ -5,60 +5,18 @@
 <!-- Start Content-->
 <div class="container-fluid">
 
-    <!-- start page title -->
-    <div class="row">
-        <div class="col-12">
-            <div class="page-title-box">
-                <h4 class="page-title">Dashboard</h4>
-            </div>
-        </div>
-    </div>
-    <!-- end page title -->
 
-    <div class="row">
-        <div class="col-xl-5 col-lg-6">
-
-            <div class="row">
-
-
-
-            </div> <!-- end row -->
-
-            <div class="row">
-
-            </div> <!-- end row -->
-
-        </div> <!-- end col -->
-
-        <div class="col-xl-7  col-lg-6">
-
-        </div> <!-- end col -->
-    </div>
-    <!-- end row -->
-
-    <div class="row">
-        <div class="col-lg-8">
-
-        </div> <!-- end col-->
-
-        <div class="col-lg-4">
-
-        </div> <!-- end col-->
-    </div>
-    <!-- end row -->
-
-
-    <div class="row">
+    <div class="row" style="margin-top: 45px;">
         <div class="col-xl-6 col-lg-12 order-lg-2 order-xl-1">
             <div class="card">
                 <div class="card-body">
                     <a href="/manage/project_add/" class="btn btn-sm btn-link float-right mb-3">添加
                     </a>
-                    <h4 class="header-title mt-2">Top Selling Products</h4>
+                    <h4 class="header-title mt-2">项目管理</h4>
 
                     <div class="table-responsive">
-                        <table class="table table-centered table-nowrap table-hover mb-0">
-                            <tbody>
+                        <table class="table table-centered table-nowrap table-hover mb-0 table-striped">
+                            <thead class="thead-dark">
                                 <tr>
                                     <td>
                                         <h5 class="font-14 my-1 font-weight-normal">名称</h5>
@@ -76,6 +34,8 @@
                                         <h5 class="font-14 my-1 font-weight-normal">操作</h5>
                                     </td>
                                 </tr>
+                            <thead>
+                            <tbody>
                                 {% for p in projects %}
                                 <tr>
                                     <td>
@@ -107,15 +67,6 @@
                 </div> <!-- end card-body-->
             </div> <!-- end card-->
         </div> <!-- end col-->
-
-        <div class="col-xl-3 col-lg-6 order-lg-1">
-
-        </div> <!-- end col-->
-
-        <div class="col-xl-3 col-lg-6 order-lg-1">
-
-        </div>
-        <!-- end col -->
 
     </div>
     <!-- end row -->
