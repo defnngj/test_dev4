@@ -8,13 +8,13 @@ from project_manage.forms import ProjectForm
 @login_required  # 控制用户在未登录的情况下不能进入
 def manage(request):
     """
-    管理页面
+    项目管理页面
     """
     # username = request.COOKIES.get('user', '')
     projects = Project.objects.all()
 
     username = request.session.get('user', '')
-    return render(request, "manage2.html", {"user": username, "projects": projects})
+    return render(request, "manage.html", {"user": username, "projects": projects})
 
 
 @login_required

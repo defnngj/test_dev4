@@ -1,0 +1,87 @@
+{% extends "navigation.html" %}
+
+{% block navigation %}
+<!-- 这个一部分属于 edit.html 文件 -->
+<!-- Start Content-->
+<div class="container-fluid">
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <h4 class="page-title">更新模块</h4>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+
+    <div class="row">
+        <div class="col-xl-5 col-lg-6">
+
+            <div class="row">
+
+
+
+            </div> <!-- end row -->
+
+            <div class="row">
+
+            </div> <!-- end row -->
+
+        </div> <!-- end col -->
+
+        <div class="col-xl-7  col-lg-6">
+
+        </div> <!-- end col -->
+    </div>
+    <!-- end row -->
+
+    <div class="row">
+        <div class="col-lg-8">
+
+        </div> <!-- end col-->
+
+        <div class="col-lg-4">
+
+        </div> <!-- end col-->
+    </div>
+    <!-- end row -->
+
+
+    <div class="row">
+        <div class="col-xl-6 col-lg-12 order-lg-2 order-xl-1">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <!-- {{ form.name }} <br> -->
+                        <form action="/manage/module_edit/{{mid}}/" method="post">
+                            <label>项目:</label>
+                            {{form.project }}<br>
+                            <label>名称:</label>
+                            {{ form.name }} <br>
+                            <label>描述:</label>
+                            {{form.describe}}<br>
+                           <br>
+                           <input type="submit" class="btn btn-primary" value="更新">
+                       </form>
+                    </div> <!-- end table-responsive-->
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col-->
+
+        <div class="col-xl-3 col-lg-6 order-lg-1">
+
+        </div> <!-- end col-->
+
+        <div class="col-xl-3 col-lg-6 order-lg-1">
+
+        </div>
+        <!-- end col -->
+
+    </div>
+    <!-- end row -->
+
+</div>
+<!-- container -->
+
+{% endblock %}

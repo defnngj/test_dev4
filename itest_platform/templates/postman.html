@@ -1,0 +1,158 @@
+{% extends "navigation.html" %}
+
+{% block navigation %}
+<!-- 这个一部分属于 manage2.html 文件 -->
+<!-- Start Content-->
+<div class="container-fluid">
+
+
+    <div class="row" style="margin-top: 45px;">
+        <div class="col-xl-6 col-lg-12 order-lg-2 order-xl-1">
+            <div class="card">
+                <div class="card-body">
+
+                    <div class="form-group">
+                        <label for="req_url">URL</label>
+                        <input type="text" class="form-control" id="req_url" placeholder="http://httpbin.org/get">
+                    </div>
+
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="method" id="GET" value="GET" checked>
+                      <label class="form-check-label" >
+                        GET
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="method" id="POST" value="POST">
+                      <label class="form-check-label">
+                        POST
+                      </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="req_url">参数</label>
+                        <div id="parameterEditor" style="width: 100%"></div>
+                    </div>
+                    
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="type" id="data" value="data" checked>
+                        <label class="form-check-label">
+                          from-data
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="type" id="json" value="json">
+                        <label class="form-check-label">
+                          JSON
+                        </label>
+                      </div>
+
+                      <div class="form-group" style="text-align: right;">
+                        <button type="button" class="btn btn-primary" onclick="send()">Send</button>
+                     </div>
+
+                     <div class="form-group">
+                        <label for="result">结果</label>
+                        <textarea class="form-control" id="result" rows="3"></textarea>
+                    </div>
+
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col-->
+
+    </div>
+    <!-- end row -->
+
+</div>
+<!-- container -->
+<link href="https://cdn.bootcdn.net/ajax/libs/jsoneditor/9.1.1/jsoneditor.min.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/jsoneditor/9.1.1/jsoneditor.min.js"></script>
+<script type="text/javascript">
+    var parameters = document.getElementById("parameterEditor");
+    var options = {
+        mode: "code"
+    };
+    var parameterEditor = new JSONEditor(parameters, options);
+
+    const initialJson = {}
+    parameterEditor.set(initialJson)
+    
+    
+    function send(){
+        console.log("点击了发送按钮");
+        // 获取URL的值
+        var url = $("#req_url").val()
+        // 请求方法
+        var method = $('input[name="method"]:checked').val();
+        // 请求参数
+        var par = parameterEditor.get()
+        // 请求参数类型
+        var type = $('input[name="type"]:checked').val();
+
+        console.log("url->", url)
+        console.log("method->", method)
+        console.log("par->", par)
+        console.log("type->", type)
+
+        $.post("/api/debug/",{
+            req_url:url,
+            req_method:method,
+            req_par: par,
+            req_type: type
+        },function(resp){
+            console.log("resp=>", resp);
+            $('#result').val(resp.data); 
+        });
+
+    }
+
+
+
+
+
+
+</script>
+
+<style>
+    .create-option {
+        height: 45px;
+    }
+
+    div.jsoneditor {
+        border: thin solid #727cf5;
+    }
+
+    div.jsoneditor-menu {
+        display: none;
+    }
+
+    .ace-jsoneditor .ace_gutter {
+        background: white;
+    }
+
+    div.jsoneditor-outer.has-main-menu-bar {
+        margin-top: 0px;
+        padding-top: 0px;
+    }
+
+    .per-label {
+        margin-right: 10px;
+        margin-bottom: 4px;
+        font-size: 1rem;
+    }
+</style>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

@@ -28,5 +28,12 @@ urlpatterns = [
     path("manage/", include('project_manage.urls')),
 
     path('logout/', login_views.logout),
+
+    # 用例管理
+    path("case/", include('case_manage.urls')),
+
+    # 接口的管理
+    path("api/", include('api_manage.urls')),
+
 ]
 
