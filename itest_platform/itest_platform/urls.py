@@ -24,6 +24,8 @@ urlpatterns = [
 
     path('', login_views.index),
     path('index/', login_views.index),
+    path('accounts/login/', login_views.index),
+
     # path('manage/', views.manage),
     path("manage/", include('project_manage.urls')),
 

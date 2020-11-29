@@ -56,6 +56,32 @@
                         <textarea class="form-control" id="result" rows="3"></textarea>
                     </div>
 
+                    <div class="form-group" style="text-align: right;">
+                        <button type="button" class="btn btn-success" onclick="assertResult()">Assert</button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="result">断言</label>
+                        <textarea class="form-control" id="assert" rows="3"></textarea>
+                    </div>
+
+                    <select class="form-control select2-single" id="selectProject">
+                    </select>
+
+                    <select class="form-control select2-single" id="selectModule">
+                        <option>模块1</option>
+                        <option>模块2</option>
+                    </select>
+
+                    <div class="form-group">
+                        <label>名称</label>
+                        <input type="text" class="form-control" id="case_name">
+                    </div>
+                    
+                    <div class="form-group" style="text-align: right;">
+                        <button type="button" class="btn btn-warning" onclick="saveCase()">Save</button>
+                    </div>
+
                 </div> <!-- end card-body-->
             </div> <!-- end card-->
         </div> <!-- end col-->
@@ -68,7 +94,19 @@
 <link href="https://cdn.bootcdn.net/ajax/libs/jsoneditor/9.1.1/jsoneditor.min.css" rel="stylesheet" type="text/css">
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/jsoneditor/9.1.1/jsoneditor.min.js"></script>
+
+<link href="https://cdn.bootcdn.net/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
+{% load static %}
+<script src="{% static "myselect.js" %}"></script>
+
 <script type="text/javascript">
+
+    //调用myselect.js文件里面的hello函数
+    hello("tom")
+    
+    SelectInit()
+
     var parameters = document.getElementById("parameterEditor");
     var options = {
         mode: "code"
@@ -78,7 +116,7 @@
     const initialJson = {}
     parameterEditor.set(initialJson)
     
-    
+    //发送接口请求的方法
     function send(){
         console.log("点击了发送按钮");
         // 获取URL的值
@@ -87,23 +125,41 @@
         var method = $('input[name="method"]:checked').val();
         // 请求参数
         var par = parameterEditor.get()
+        var par_str = JSON.stringify(par, null, 2);
+
+        console.log("参数-->", par_str)
         // 请求参数类型
         var type = $('input[name="type"]:checked').val();
 
         console.log("url->", url)
         console.log("method->", method)
-        console.log("par->", par)
+        console.log("par->", par_str)
         console.log("type->", type)
 
         $.post("/api/debug/",{
             req_url:url,
             req_method:method,
-            req_par: par,
+            req_par: par_str,
             req_type: type
         },function(resp){
             console.log("resp=>", resp);
             $('#result').val(resp.data); 
         });
+
+    }
+
+    function assertResult(){
+        var result = $("#result").val();
+        var assert = $("#assert").val();
+
+        $.post("/api/assert/",{
+            assert_result: result,
+            assert_text: assert,
+        },function(resp){
+            console.log("resp=>", resp);
+            alert(resp.msg)
+        });
+
 
     }
 
