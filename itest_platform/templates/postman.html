@@ -5,81 +5,72 @@
 <!-- Start Content-->
 <div class="container-fluid">
 
-
     <div class="row" style="margin-top: 45px;">
         <div class="col-xl-6 col-lg-12 order-lg-2 order-xl-1">
             <div class="card">
                 <div class="card-body">
-
+                    <!-- 请求方法、URL -->
+                    <div style="margin-top: 20px;height: 50px;">
+                        <span style="float: left;">
+                            <select class="form-control select2-single" id="method" style="width: 120px">
+                                <option value="GET">GET</option>
+                                <option value="POST">POST</option>
+                            </select>
+                        </span>
+                        <span style="float: left; width: 75%;">
+                            <input type="text" class="form-control" id="req_url" placeholder="http://httpbin.org/get">
+                        </span>
+                        <span style="float: right;">
+                            <button type="button" class="btn btn-primary" onclick="send()">Send</button>
+                        </span>
+                    </div>
+                    <!-- 参数类型 -->
+                    <div style="margin-top: 10px;">
+                        <label class="radio-inline">
+                            <input type="radio" name="type" id="data" value="data" checked> form-data
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="type" id="json" value="json"> JSON
+                        </label>
+                    </div>
+                    <!-- 参数 -->
                     <div class="form-group">
-                        <label for="req_url">URL</label>
-                        <input type="text" class="form-control" id="req_url" placeholder="http://httpbin.org/get">
-                    </div>
-
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="method" id="GET" value="GET" checked>
-                      <label class="form-check-label" >
-                        GET
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="method" id="POST" value="POST">
-                      <label class="form-check-label">
-                        POST
-                      </label>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="req_url">参数</label>
                         <div id="parameterEditor" style="width: 100%"></div>
                     </div>
-                    
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="type" id="data" value="data" checked>
-                        <label class="form-check-label">
-                          from-data
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="type" id="json" value="json">
-                        <label class="form-check-label">
-                          JSON
-                        </label>
-                      </div>
-
-                      <div class="form-group" style="text-align: right;">
-                        <button type="button" class="btn btn-primary" onclick="send()">Send</button>
-                     </div>
-
-                     <div class="form-group">
-                        <label for="result">结果</label>
-                        <textarea class="form-control" id="result" rows="3"></textarea>
+                    <!-- 返回值 -->
+                    <div class="form-group">
+                        <label for="result">Response</label>
+                        <textarea class="form-control" id="result" rows="5"></textarea>
                     </div>
 
+                    <!-- 断言 -->
+                    
+                    <div class="form-group">
+                        <label for="result">Assert(Contains)</label>
+                        <textarea class="form-control" id="assert" rows="3"></textarea>
+                    </div>
                     <div class="form-group" style="text-align: right;">
                         <button type="button" class="btn btn-success" onclick="assertResult()">Assert</button>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="result">断言</label>
-                        <textarea class="form-control" id="assert" rows="3"></textarea>
+
+                    <!-- 保存：项目/模块用例名 -->
+                    <div style="margin-top: 20px;height: 50px;">
+                        <label style="float: left; margin-bottom: 0px;margin-top: 8px;">Project/Module：</label>
+                        <span style="float: left">
+                            <select class="form-control select2-single" id="selectProject" style="width: 180px">
+                            </select>
+                        </span>
+                        <span style="float: left">
+                            <select class="form-control select2-single" id="selectModule" style="width: 180px">
+                            </select>
+                        </span>
                     </div>
-
-                    <select class="form-control select2-single" id="selectProject">
-                    </select>
-
-                    <select class="form-control select2-single" id="selectModule">
-                        <option>模块1</option>
-                        <option>模块2</option>
-                    </select>
-
                     <div class="form-group">
-                        <label>名称</label>
+                        <label>name:</label>
                         <input type="text" class="form-control" id="case_name">
                     </div>
-                    
                     <div class="form-group" style="text-align: right;">
-                        <button type="button" class="btn btn-warning" onclick="saveCase()">Save</button>
+                        <button type="button" class="btn btn-dark" onclick="saveCase()">Save</button>
                     </div>
 
                 </div> <!-- end card-body-->
@@ -91,20 +82,19 @@
 
 </div>
 <!-- container -->
-<link href="https://cdn.bootcdn.net/ajax/libs/jsoneditor/9.1.1/jsoneditor.min.css" rel="stylesheet" type="text/css">
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/jsoneditor/9.1.1/jsoneditor.min.js"></script>
-
-<link href="https://cdn.bootcdn.net/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet">
-<script src="https://cdn.bootcdn.net/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
 {% load static %}
-<script src="{% static "myselect.js" %}"></script>
+<link href="{% static "/jsoneditor/jsoneditor.min.css" %}" rel="stylesheet" type="text/css">
+<link href="{% static "/select/select2.min.css" %}" rel="stylesheet">
 
+<script src="{% static "js/jquery.min.js" %}"></script>
+<script src="{% static "/jsoneditor/jsoneditor.min.js" %}"></script>
+<script src="{% static "/select/select2.min.js" %}"></script>
+<script src="{% static "myselect.js" %}"></script>
 <script type="text/javascript">
 
     //调用myselect.js文件里面的hello函数
     hello("tom")
-    
+
     SelectInit()
 
     var parameters = document.getElementById("parameterEditor");
@@ -115,14 +105,15 @@
 
     const initialJson = {}
     parameterEditor.set(initialJson)
-    
+
     //发送接口请求的方法
-    function send(){
+    function send() {
         console.log("点击了发送按钮");
         // 获取URL的值
         var url = $("#req_url").val()
         // 请求方法
-        var method = $('input[name="method"]:checked').val();
+        // var method = $('input[name="method"]:checked').val();
+        var method = $("#method").val();
         // 请求参数
         var par = parameterEditor.get()
         var par_str = JSON.stringify(par, null, 2);
@@ -136,26 +127,26 @@
         console.log("par->", par_str)
         console.log("type->", type)
 
-        $.post("/api/debug/",{
-            req_url:url,
-            req_method:method,
+        $.post("/api/debug/", {
+            req_url: url,
+            req_method: method,
             req_par: par_str,
             req_type: type
-        },function(resp){
+        }, function (resp) {
             console.log("resp=>", resp);
-            $('#result').val(resp.data); 
+            $('#result').val(resp.data);
         });
 
     }
 
-    function assertResult(){
+    function assertResult() {
         var result = $("#result").val();
         var assert = $("#assert").val();
 
-        $.post("/api/assert/",{
+        $.post("/api/assert/", {
             assert_result: result,
             assert_text: assert,
-        },function(resp){
+        }, function (resp) {
             console.log("resp=>", resp);
             alert(resp.msg)
         });
@@ -200,15 +191,3 @@
 </style>
 
 {% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
