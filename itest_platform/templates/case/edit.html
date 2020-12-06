@@ -1,0 +1,240 @@
+{% extends "navigation.html" %}
+
+{% block navigation %}
+<!-- 这个一部分属于 manage2.html 文件 -->
+<!-- Start Content-->
+<div class="container-fluid">
+
+    <div class="row" style="margin-top: 45px;">
+        <div class="col-xl-6 col-lg-12 order-lg-2 order-xl-1">
+            <div class="card">
+                <div class="card-body">
+                    <!-- 请求方法、URL -->
+                    <div style="margin-top: 20px;height: 50px;">
+                        <span style="float: left;">
+                            <select class="form-control select2-single" id="method" style="width: 120px">
+                                <option value="GET">GET</option>
+                                <option value="POST">POST</option>
+                            </select>
+                        </span>
+                        <span style="float: left; width: 75%;">
+                            <input type="text" class="form-control" id="req_url" placeholder="http://httpbin.org/get">
+                        </span>
+                        <span style="float: right;">
+                            <button type="button" class="btn btn-primary" onclick="send()">Send</button>
+                        </span>
+                    </div>
+                    <!-- 参数类型 -->
+                    <div style="margin-top: 10px;">
+                        <label class="radio-inline">
+                            <input type="radio" name="type" id="data" value="data" checked> form-data
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="type" id="json" value="json"> JSON
+                        </label>
+                    </div>
+                    <!-- 参数 -->
+                    <div class="form-group">
+                        <div id="parameterEditor" style="width: 100%"></div>
+                    </div>
+                    <!-- 返回值 -->
+                    <div class="form-group">
+                        <label for="result">Response</label>
+                        <textarea class="form-control" id="result" rows="5"></textarea>
+                    </div>
+
+                    <!-- 断言 -->
+                    
+                    <div class="form-group">
+                        <label for="result">Assert(Contains)</label>
+                        <textarea class="form-control" id="assert" rows="3"></textarea>
+                    </div>
+                    <div class="form-group" style="text-align: right;">
+                        <button type="button" class="btn btn-success" onclick="assertResult()">Assert</button>
+                    </div>
+
+                    <!-- 保存：项目/模块用例名 -->
+                    <div style="margin-top: 20px;height: 50px;">
+                        <label style="float: left; margin-bottom: 0px;margin-top: 8px;">Project/Module：</label>
+                        <span style="float: left">
+                            <select class="form-control select2-single" id="selectProject" style="width: 180px">
+                            </select>
+                        </span>
+                        <span style="float: left">
+                            <select class="form-control select2-single" id="selectModule" style="width: 180px">
+                            </select>
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label>name:</label>
+                        <input type="text" class="form-control" id="case_name">
+                    </div>
+                    <div class="form-group" style="text-align: right;">
+                        <button type="button" class="btn btn-dark" onclick="saveCase()">Save</button>
+                    </div>
+
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col-->
+
+    </div>
+    <!-- end row -->
+
+</div>
+<!-- container -->
+{% load static %}
+<link href="{% static "/jsoneditor/jsoneditor.min.css" %}" rel="stylesheet" type="text/css">
+<link href="{% static "/select/select2.min.css" %}" rel="stylesheet">
+
+<script src="{% static "js/jquery.min.js" %}"></script>
+<script src="{% static "/jsoneditor/jsoneditor.min.js" %}"></script>
+<script src="{% static "/select/select2.min.js" %}"></script>
+<script src="{% static "myselect.js" %}"></script>
+<script src="{% static "mycase.js" %}"></script>
+<script type="text/javascript">
+
+    //调用 mycase.js下面的getCaseInfo()函数
+    getCaseInfo()
+
+    var parameters = document.getElementById("parameterEditor");
+    var options = {
+        mode: "code"
+    };
+    var parameterEditor = new JSONEditor(parameters, options);
+
+    const initialJson = {}
+    parameterEditor.set(initialJson)
+
+    //发送接口请求的方法
+    function send() {
+        console.log("点击了发送按钮");
+        // 获取URL的值
+        var url = $("#req_url").val()
+        // 请求方法
+        // var method = $('input[name="method"]:checked').val();
+        var method = $("#method").val();
+        // 请求参数
+        var par = parameterEditor.get()
+        var par_str = JSON.stringify(par, null, 2);
+
+        console.log("参数-->", par_str)
+        // 请求参数类型
+        var type = $('input[name="type"]:checked').val();
+
+        console.log("url->", url)
+        console.log("method->", method)
+        console.log("par->", par_str)
+        console.log("type->", type)
+
+        $.post("/api/debug/", {
+            req_url: url,
+            req_method: method,
+            req_par: par_str,
+            req_type: type
+        }, function (resp) {
+            console.log("resp=>", resp);
+            $('#result').val(resp.data);
+        });
+
+    }
+
+    function assertResult() {
+        var result = $("#result").val();
+        var assert = $("#assert").val();
+
+        $.post("/api/assert/", {
+            assert_result: result,
+            assert_text: assert,
+        }, function (resp) {
+            console.log("resp=>", resp);
+            alert(resp.msg)
+        });
+    }
+
+    //保存用例
+    function saveCase(){
+        console.log("点击了保存按钮");
+        // 获取URL的值
+        var url = $("#req_url").val()
+        // 请求方法
+        // var method = $('input[name="method"]:checked').val();
+        var method = $("#method").val();
+        // 请求参数
+        var par = parameterEditor.get()
+        var par_str = JSON.stringify(par, null, 2);
+
+        // 请求参数类型
+        var type = $('input[name="type"]:checked').val();
+
+        // 响应的结果
+        var resp_result = $("#result").val();
+
+        // 响应的断言
+        var resp_assert = $("#assert").val();
+
+        //选择的模块
+        var case_module = $("#selectModule").val();
+
+        //用例的名称
+        var case_name = $("#case_name").val();
+
+        console.log("url->", url)
+        console.log("method->", method)
+        console.log("par->", par_str)
+        console.log("type->", type)
+        console.log("resp_result->", resp_result)
+        console.log("resp_assert->", resp_assert)
+        console.log("case_module->", case_module)
+        console.log("case_name->", case_name)
+
+        $.post("/api/add_case/", {
+            req_url: url,
+            req_method: method,
+            req_par: par_str,
+            req_type: type,
+            resp_result: resp_result,
+            resp_assert: resp_assert,
+            case_module: case_module,
+            case_name: case_name
+        }, function (resp) {
+            console.log("resp=>", resp);
+            window.alert(resp.msg);
+        });
+  
+    }
+
+
+
+
+</script>
+
+<style>
+    .create-option {
+        height: 45px;
+    }
+
+    div.jsoneditor {
+        border: thin solid #727cf5;
+    }
+
+    div.jsoneditor-menu {
+        display: none;
+    }
+
+    .ace-jsoneditor .ace_gutter {
+        background: white;
+    }
+
+    div.jsoneditor-outer.has-main-menu-bar {
+        margin-top: 0px;
+        padding-top: 0px;
+    }
+
+    .per-label {
+        margin-right: 10px;
+        margin-bottom: 4px;
+        font-size: 1rem;
+    }
+</style>
+
+{% endblock %}

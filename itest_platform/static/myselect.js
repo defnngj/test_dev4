@@ -16,7 +16,7 @@ var SelectInit = function (defaultProjectId, defaultModuleId) {
     //设置默认选项
     function setDefaultOption(obj, id) {
         for (let i = 0; i < obj.options.length; i++) {
-            if (obj.options[i].value === id) {
+            if (obj.options[i].value == id) {
                 obj.selectedIndex = i;
                 return;
             }

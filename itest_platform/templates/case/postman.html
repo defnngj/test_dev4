@@ -150,11 +150,61 @@
             console.log("resp=>", resp);
             alert(resp.msg)
         });
-
-
     }
 
+    //保存用例
+    function saveCase(){
+        console.log("点击了保存按钮");
+        // 获取URL的值
+        var url = $("#req_url").val()
+        // 请求方法
+        // var method = $('input[name="method"]:checked').val();
+        var method = $("#method").val();
+        // 请求参数
+        var par = parameterEditor.get()
+        var par_str = JSON.stringify(par, null, 2);
 
+        console.log("参数-->", par_str)
+        // 请求参数类型
+        var type = $('input[name="type"]:checked').val();
+
+
+        // 响应的结果
+        var resp_result = $("#result").val();
+
+        // 响应的断言
+        var resp_assert = $("#assert").val();
+
+        //选择的模块
+        var case_module = $("#selectModule").val();
+
+        //用例的名称
+        var case_name = $("#case_name").val();
+
+        console.log("url->", url)
+        console.log("method->", method)
+        console.log("par->", par_str)
+        console.log("type->", type)
+        console.log("resp_result->", resp_result)
+        console.log("resp_assert->", resp_assert)
+        console.log("case_module->", case_module)
+        console.log("case_name->", case_name)
+
+        $.post("/api/add_case/", {
+            req_url: url,
+            req_method: method,
+            req_par: par_str,
+            req_type: type,
+            resp_result: resp_result,
+            resp_assert: resp_assert,
+            case_module: case_module,
+            case_name: case_name
+        }, function (resp) {
+            console.log("resp=>", resp);
+            window.alert(resp.msg);
+        });
+  
+    }
 
 
 
