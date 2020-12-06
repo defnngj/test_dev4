@@ -153,7 +153,9 @@
 
     //保存用例
     function saveCase(){
-        console.log("点击了保存按钮");
+
+        var url = window.location.href;
+        var caseId = url.split("/")[5];
         // 获取URL的值
         var url = $("#req_url").val()
         // 请求方法
@@ -178,16 +180,8 @@
         //用例的名称
         var case_name = $("#case_name").val();
 
-        console.log("url->", url)
-        console.log("method->", method)
-        console.log("par->", par_str)
-        console.log("type->", type)
-        console.log("resp_result->", resp_result)
-        console.log("resp_assert->", resp_assert)
-        console.log("case_module->", case_module)
-        console.log("case_name->", case_name)
-
         $.post("/api/add_case/", {
+            case_id: caseId,
             req_url: url,
             req_method: method,
             req_par: par_str,
@@ -202,8 +196,6 @@
         });
   
     }
-
-
 
 
 </script>

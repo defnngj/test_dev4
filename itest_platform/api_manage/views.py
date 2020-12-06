@@ -84,6 +84,7 @@ def add_case(request):
     保存测试用例
     """
     if request.method == "POST":
+        case_id = request.POST.get("case_id", "")
         req_url = request.POST.get("req_url", "")
         req_method = request.POST.get("req_method", "")
         req_type = request.POST.get("req_type", "")
@@ -92,7 +93,7 @@ def add_case(request):
         resp_assert = request.POST.get("resp_assert", "")
         case_module = request.POST.get("case_module", "")
         case_name = request.POST.get("case_name", "")
-
+        print("case_id", case_id)
         if (req_url == "" or req_method == "" or
                 resp_result == "" or resp_assert == "" or
                 case_module == "" or case_name == ""):
@@ -112,16 +113,31 @@ def add_case(request):
         else:
             return JsonResponse({"code": 10103, "msg": "请求参数类型不支持", "data": ""})
 
-        TestCase.objects.create(
-            name=case_name,
-            url=req_url,
-            method=method,
-            request_type=type_,
-            request_body=req_par,
-            response=resp_result,
-            response_assert=resp_assert,
-            module_id=case_module,
-        )
+        if case_id == "":
+            # 创建用例
+            TestCase.objects.create(
+                name=case_name,
+                url=req_url,
+                method=method,
+                request_type=type_,
+                request_body=req_par,
+                response=resp_result,
+                response_assert=resp_assert,
+                module_id=case_module,
+            )
+        else:
+            # 保存用例
+            print("method", method, type(method))
+            case = TestCase.objects.get(id=int(case_id))
+            case.name = case_name
+            case.url = req_url
+            case.method = method
+            case.request_type = type_
+            case.request_body = req_par
+            case.response = resp_result
+            case.response_assert = resp_assert
+            case.module_id = case_module
+            case.save()
 
         return JsonResponse({"code": 200, "msg": "add success", "data": []})
     else:

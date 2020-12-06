@@ -1,9 +1,7 @@
 
 var getCaseInfo = function(){
-    console.log(" 这个函数调用后端一个case的信息过来！");
     var url = window.location.href;
     var caseId = url.split("/")[5];
-    console.log(caseId)
     
     // 调用获取select数据列表
     $.get("/api/get_case_info/"+caseId+"/", {}, 

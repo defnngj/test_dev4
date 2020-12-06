@@ -7,6 +7,6 @@ urlpatterns = [
     path('', views.case_list),
     path('add/', views.case_add),
     path('edit/<int:cid>/', views.case_edit),
-    path('delete/<int:cid>/', views.case_add),
+    path('delete/<int:cid>/', views.case_delete),
 
 ]

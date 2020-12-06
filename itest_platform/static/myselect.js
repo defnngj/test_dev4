@@ -5,8 +5,6 @@ var hello = function(name){
 
 //初始化 “项目>模块” 二级联动菜单
 var SelectInit = function (defaultProjectId, defaultModuleId) {
-    console.log("defaultProjectId-->", defaultProjectId)
-    console.log("defaultModuleId-->", defaultModuleId)
 
     var cmbProject = document.getElementById("selectProject");
     var cmbModule = document.getElementById("selectModule");

@@ -33,6 +33,15 @@ def case_edit(request, cid):
     return render(request, "case/edit.html")
 
 
+@login_required
+def case_delete(request, cid):
+    """
+    用例编辑页面
+    """
+    TestCase.objects.get(id=cid).delete()
+    return HttpResponseRedirect("/case/")
+
+
 
 
 
