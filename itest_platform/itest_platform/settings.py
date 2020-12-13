@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'project_manage',
     'case_manage',
     'api_manage',
+    'task_manage',
 ]
 
 MIDDLEWARE = [
@@ -126,7 +127,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-SESSION_COOKIE_AGE = 3600
+# SESSION_COOKIE_AGE = 3600  # 控制session失效时间
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/

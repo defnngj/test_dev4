@@ -1,0 +1,168 @@
+{% extends "navigation.html" %}
+
+{% block navigation %}
+<!-- 这个一部分属于 manage2.html 文件 -->
+<!-- Start Content-->
+<div class="container-fluid">
+
+    <div class="row" style="margin-top: 45px;">
+        <div class="col-xl-6 col-lg-12 order-lg-2 order-xl-1">
+            <div class="card">
+                <div class="card-body">
+                    
+                    <!-- 任务的名称-->
+                    <div class="form-group">
+                        <label for="task_name">任务名称:</label>
+                        <input type="text" class="form-control" id="task_name">
+                    </div>
+
+                    <!-- 返回值 -->
+                    <div class="form-group">
+                        <label for="task_desc">任务描述：</label>
+                        <textarea class="form-control" id="task_desc" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="task_desc">用例：</label>
+                        <ul id="treeDemo" class="ztree"></ul>
+                    </div>
+
+                    <div class="form-group" style="text-align: right;">
+                        <button type="button" class="btn btn-dark" onclick="saveCase()">Save</button>
+                    </div>
+
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col-->
+
+    </div>
+    <!-- end row -->
+
+</div>
+<!-- container -->
+{% load static %}
+<!-- <link href="http://www.treejs.cn/v3/css/zTreeStyle/zTreeStyle.css" rel="stylesheet">
+<link href="http://www.treejs.cn/v3/css/demo.css" rel="stylesheet"> -->
+
+<!-- <script src="http://www.treejs.cn/v3/js/jquery-1.4.4.min.js"></script> -->
+<!-- <script src="http://www.treejs.cn/v3/js/jquery.ztree.core.js"></script> -->
+
+<script src="https://cdn.bootcss.com/jquery/1.4.2/jquery.js"></script>
+<link href="https://cdn.bootcss.com/zTree.v3/3.5.39/css/zTreeStyle/zTreeStyle.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/zTree.v3/3.5.40/js/jquery.ztree.all.js"></script>
+<script type="text/javascript">
+
+   var zTreeObj;
+   // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
+   var setting = {};
+   // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
+   var zNodes = [
+    {
+        name:"test1", 
+        open:true, 
+        children:[
+            {name:"test1_1"}, 
+            {name:"test1_2"}
+        ]},
+       {
+           name:"test2", 
+           open:true, 
+           children:[
+               {name:"test2_1"}, 
+               {name:"test2_2"}
+            ]
+        }
+   ];
+   $(document).ready(function(){   
+        zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+   });
+
+    //保存用例
+    function saveCase(){
+        console.log("点击了保存按钮");
+        // 获取URL的值
+        var url = $("#req_url").val()
+        // 请求方法
+        // var method = $('input[name="method"]:checked').val();
+        var method = $("#method").val();
+        // 请求参数
+        var par = parameterEditor.get()
+        var par_str = JSON.stringify(par, null, 2);
+
+        console.log("参数-->", par_str)
+        // 请求参数类型
+        var type = $('input[name="type"]:checked').val();
+
+
+        // 响应的结果
+        var resp_result = $("#result").val();
+
+        // 响应的断言
+        var resp_assert = $("#assert").val();
+
+        //选择的模块
+        var case_module = $("#selectModule").val();
+
+        //用例的名称
+        var case_name = $("#case_name").val();
+
+        console.log("url->", url)
+        console.log("method->", method)
+        console.log("par->", par_str)
+        console.log("type->", type)
+        console.log("resp_result->", resp_result)
+        console.log("resp_assert->", resp_assert)
+        console.log("case_module->", case_module)
+        console.log("case_name->", case_name)
+
+        $.post("/api/add_case/", {
+            req_url: url,
+            req_method: method,
+            req_par: par_str,
+            req_type: type,
+            resp_result: resp_result,
+            resp_assert: resp_assert,
+            case_module: case_module,
+            case_name: case_name
+        }, function (resp) {
+            console.log("resp=>", resp);
+            window.alert(resp.msg);
+        });
+  
+    }
+
+
+
+
+</script>
+
+<style>
+    .create-option {
+        height: 45px;
+    }
+
+    div.jsoneditor {
+        border: thin solid #727cf5;
+    }
+
+    div.jsoneditor-menu {
+        display: none;
+    }
+
+    .ace-jsoneditor .ace_gutter {
+        background: white;
+    }
+
+    div.jsoneditor-outer.has-main-menu-bar {
+        margin-top: 0px;
+        padding-top: 0px;
+    }
+
+    .per-label {
+        margin-right: 10px;
+        margin-bottom: 4px;
+        font-size: 1rem;
+    }
+</style>
+
+{% endblock %}

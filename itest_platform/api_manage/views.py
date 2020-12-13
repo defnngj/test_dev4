@@ -166,6 +166,39 @@ def get_case_info(request, cid):
         return JsonResponse({"code": 10101, "msg": "请求方法错误", "data": ""})
 
 
+def get_case_tree(request):
+    """
+    返回项目模块用例的一个树
+    """
+    if request.method == "GET":
+        data_list = []
+        projects = Project.objects.all()
+        for p in projects:
+            project_dict = {
+                "id": p.id,
+                "name": p.name,
+                "children": []
+            }
+            modules = Module.objects.filter(project=p)
+            for m in modules:
+                module_dict = {
+                    "id": m.id,
+                    "name": m.name,
+                    "children": []
+                }
+                cases = TestCase.objects.filter(module=m)
+                for c in cases:
+                    case_dict = {
+                        "id": c.id,
+                        "name": c.name
+                    }
+                    module_dict["children"].append(case_dict)
+                project_dict["children"].append(module_dict)
+            data_list.append(project_dict)
+        return JsonResponse({"code": 10200, "msg": "success", "data": data_list})
+    else:
+        return JsonResponse({"code": 10101, "msg": "请求方法错误", "data": ""})
+
 
 
 

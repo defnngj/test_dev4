@@ -10,4 +10,6 @@ urlpatterns = [
     path('add_case/', views.add_case),
     path('get_case_info/<int:cid>/', views.get_case_info),
 
+    # 任务管理
+    path('get_case_tree/', views.get_case_tree),
 ]
