@@ -11,5 +11,8 @@ urlpatterns = [
     path('get_case_info/<int:cid>/', views.get_case_info),
 
     # 任务管理
-    path('get_case_tree/', views.get_case_tree),
+    path('get_case_tree/<int:tid>/', views.get_case_tree),
+    path('add_task/', views.add_task),
+    path('get_task/<int:tid>/', views.get_task),
+    path('edit_task/<int:tid>/', views.edit_task),
 ]

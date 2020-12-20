@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from project_manage.models import Project, Module
 from case_manage.models import TestCase
 from django.forms.models import model_to_dict
+from task_manage.models import Task, TaskCase
 
 
 def debug(request):
@@ -166,11 +167,17 @@ def get_case_info(request, cid):
         return JsonResponse({"code": 10101, "msg": "请求方法错误", "data": ""})
 
 
-def get_case_tree(request):
+def get_case_tree(request, tid):
     """
     返回项目模块用例的一个树
     """
     if request.method == "GET":
+        if tid != 0:
+            cases_list = []
+            cases = TaskCase.objects.filter(task_id=tid)
+            for c in cases:
+                cases_list.append(c.case)
+
         data_list = []
         projects = Project.objects.all()
         for p in projects:
@@ -186,13 +193,32 @@ def get_case_tree(request):
                     "name": m.name,
                     "children": []
                 }
-                cases = TestCase.objects.filter(module=m)
-                for c in cases:
-                    case_dict = {
-                        "id": c.id,
-                        "name": c.name
-                    }
-                    module_dict["children"].append(case_dict)
+                if tid == 0:
+                    cases = TestCase.objects.filter(module=m)
+                    for c in cases:
+                        case_dict = {
+                            "id": c.id,
+                            "name": c.name,
+                            "checked": False
+                        }
+                        module_dict["children"].append(case_dict)
+                else:
+                    cases = TestCase.objects.filter(module=m)
+                    for c in cases:
+                        if c.id in cases_list:
+                            case_dict = {
+                                "id": c.id,
+                                "name": c.name,
+                                "checked": True
+                            }
+                        else:
+                            case_dict = {
+                                "id": c.id,
+                                "name": c.name,
+                                "checked": False
+                            }
+                        module_dict["children"].append(case_dict)
+
                 project_dict["children"].append(module_dict)
             data_list.append(project_dict)
         return JsonResponse({"code": 10200, "msg": "success", "data": data_list})
@@ -200,9 +226,87 @@ def get_case_tree(request):
         return JsonResponse({"code": 10101, "msg": "请求方法错误", "data": ""})
 
 
+def add_task(request):
+    """
+    添加任务
+    """
+    if request.method == "POST":
+        task_name = request.POST.get("task_name", "")
+        task_desc = request.POST.get("task_desc", "")
+        task_cases = request.POST.get("task_cases", "")
+
+        print("dddd", task_cases, type(task_cases))
+
+        if task_name == "":
+            return JsonResponse({"code": 101001, "msg": "task name is null", "data": []})
+
+        cases_list = json.loads(task_cases)
+        if cases_list is []:
+            return JsonResponse({"code": 101001, "msg": "select case is null", "data": []})
+        print("cccc", task_cases, type(cases_list))
+
+        task = Task.objects.create(name=task_name, describe=task_desc)
+        for case in cases_list:
+            TaskCase.objects.create(task_id=task.id, case=case)
+
+        return JsonResponse({"code": 10200, "msg": "success", "data": []})
+    else:
+        return JsonResponse({"code": 10101, "msg": "请求方法错误", "data": ""})
 
 
+def get_task(request, tid):
+    """
+    获取任务
+    """
+    if request.method == "GET":
+        if tid == "":
+            return JsonResponse({"code": 101001, "msg": "task id is null", "data": []})
 
+        try:
+            task = Task.objects.get(id=tid)
+        except Task.DoesNotExist:
+            return JsonResponse({"code": 101002, "msg": "task id error", "data": []})
+
+        task_dict = model_to_dict(task)
+
+        return JsonResponse({"code": 10200, "msg": "success", "data": task_dict})
+    else:
+        return JsonResponse({"code": 10101, "msg": "请求方法错误", "data": ""})
+
+
+def edit_task(request, tid):
+    """
+    编辑任务保存
+    """
+    if request.method == "POST":
+        task_name = request.POST.get("task_name", "")
+        task_desc = request.POST.get("task_desc", "")
+        task_cases = request.POST.get("task_cases", "")
+
+        print("dddd", task_cases, type(task_cases))
+
+        if task_name == "":
+            return JsonResponse({"code": 101001, "msg": "task name is null", "data": []})
+
+        cases_list = json.loads(task_cases)
+        if cases_list is []:
+            return JsonResponse({"code": 101001, "msg": "select case is null", "data": []})
+        print("cccc", task_cases, type(cases_list))
+
+        task = Task.objects.get(id=tid)
+        task.name = task_name
+        task.describe = task_desc
+        task.save()
+
+        taskcase = TaskCase.objects.filter(task_id=task.id)
+        taskcase.delete()
+
+        for case in cases_list:
+            TaskCase.objects.create(task_id=task.id, case=case)
+
+        return JsonResponse({"code": 10200, "msg": "success", "data": []})
+    else:
+        return JsonResponse({"code": 10101, "msg": "请求方法错误", "data": ""})
 
 
 

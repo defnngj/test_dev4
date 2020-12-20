@@ -9,7 +9,7 @@
         <div class="col-xl-6 col-lg-12 order-lg-2 order-xl-1">
             <div class="card">
                 <div class="card-body">
-                    
+
                     <!-- 任务的名称-->
                     <div class="form-group">
                         <label for="task_name">任务名称:</label>
@@ -45,34 +45,50 @@
 <link href="https://cdn.bootcss.com/zTree.v3/3.5.39/css/zTreeStyle/zTreeStyle.css" rel="stylesheet">
 <script src="https://cdn.bootcss.com/zTree.v3/3.5.40/js/jquery.ztree.all.js"></script>
 <script type="text/javascript">
+    var url = window.location.href;
+    var taskId = url.split("/")[5];
+    console.log("tid", taskId)
 
-   var zTreeObj;
-   // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
-   var setting = {
-       check:{
-        enable: true,
-        chkStyle : "checkbox",
-       }
-   };
-
-   $(document).ready(function(){ 
-    $.get("/api/get_case_tree/0/", {}, 
-    function (resp) {
-        if (resp.code == 10200) {
-            console.log(resp.data);
-            zNodes = resp.data;
-            zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-        }else{
-            window.alert(resp.msg);
+    var zTreeObj;
+    // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
+    var setting = {
+        check: {
+            enable: true,
+            chkStyle: "checkbox",
         }
+    };
+
+    $(document).ready(function () {
+
+        // 获取任务的信息
+        $.get("/api/get_task/" +taskId +"/", {},
+            function (resp) {
+                if (resp.code == 10200) {
+                    console.log(resp.data.name);
+                    $("#task_name").val(resp.data.name);
+                    $("#task_desc").val(resp.data.describe);
+                } else {
+                    window.alert(resp.msg);
+                }
+
+            });
+        
+        $.get("/api/get_case_tree/"+taskId+"/", {},
+            function (resp) {
+                if (resp.code == 10200) {
+                    console.log(resp.data);
+                    zNodes = resp.data;
+                    zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+                } else {
+                    window.alert(resp.msg);
+                }
+
+            });
 
     });
-        
-   });
 
-    //保存任务
-    function saveTask(){
-        console.log("点击了保存按钮");
+    //编辑保存任务
+    function saveTask() {
         // 任务的名称
         var tName = $("#task_name").val()
         // 任务的描述
@@ -87,14 +103,14 @@
         var cases = new Array()
         for (var i = 0; i < nodes.length; i++) {
             console.log(nodes[i].isParent)
-			if (nodes[i].isParent == false){
-				cases.push(nodes[i].id);
-			}
+            if (nodes[i].isParent == false) {
+                cases.push(nodes[i].id);
+            }
         }
         console.log("cases", cases)
         // 将列表转为字符串
-		var casesStr = JSON.stringify(cases);
-        $.post("/api/add_task/", {
+        var casesStr = JSON.stringify(cases);
+        $.post("/api/edit_task/" +taskId+"/", {
             task_name: tName,
             task_desc: tDesc,
             task_cases: casesStr,
@@ -102,7 +118,7 @@
             console.log("resp=>", resp);
             window.alert(resp.msg);
         });
-  
+
     }
 
 
