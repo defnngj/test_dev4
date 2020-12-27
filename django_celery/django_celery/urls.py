@@ -19,5 +19,5 @@ from api import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('test/', views.test_task),
+    path('run_task/<int:tid>/', views.test_task),
 ]

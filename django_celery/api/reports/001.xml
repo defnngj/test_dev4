@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+	<testsuite errors="0" failures="0" file="test_interface.py" name="test_interface.InterfaceTest-20201227145205" skipped="0" tests="2" time="0.966" timestamp="2020-12-27T14:52:06">
+		<testcase classname="test_interface.InterfaceTest" file="test_case\test_interface.py" line="516" name="test_case_0_case1" time="0.484" timestamp="2020-12-27T14:52:05"/>
+		<testcase classname="test_interface.InterfaceTest" file="test_case\test_interface.py" line="516" name="test_case_1_case2" time="0.482" timestamp="2020-12-27T14:52:06"/>
+	</testsuite>
+</testsuites>
