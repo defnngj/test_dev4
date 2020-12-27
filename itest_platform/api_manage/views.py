@@ -6,6 +6,8 @@ from project_manage.models import Project, Module
 from case_manage.models import TestCase
 from django.forms.models import model_to_dict
 from task_manage.models import Task, TaskCase
+from api_manage.tasks import test_interface
+from case_manage.models import TestCase
 
 
 def debug(request):
@@ -309,5 +311,46 @@ def edit_task(request, tid):
         return JsonResponse({"code": 10101, "msg": "请求方法错误", "data": ""})
 
 
+def test_data(tid):
+    print("任务有的id-->", tid)
+    tcase = TaskCase.objects.filter(task_id=tid)
+    data = [()]
+    for c in tcase:
+        case = TestCase.objects.get(id=c.case)
+        # if case.method == 1:
+        #     case.method = "get"
+        # if case.method == 2:
+        #     case.method = "post"
+        case_tup = (
+            case.name,
+            case.url,
+            case.method,
+            case.request_body
+        )
+        data.append(case_tup)
 
+    """
+    根据task id 到数据库里面，查询该任务下面的所有用例，组装成一个例表
+    """
+    # data = [
+    #     ("case1", "http://httpbin.org/get", 'get', {"key": "value"}),
+    #     ("case2", "http://httpbin.org/post", 'post', {"key": "value"}),
+    # ]
+    print("data--->", data)
+    return data
+
+
+
+def running_task(request, tid):
+    """
+    运行测试任务
+    1. 根据任务的ID 查询所有的用例
+    2. 循环执行这些用例
+    3. 在执行的时候要把每一次用的结果保存下来。 单独的表保存
+    4. 手动的统计 执行结果，执行信息。
+    单元测试框架？？ 单元测试框架 + ddt
+    """
+    data = test_data(tid)
+    test_interface.delay(tid, data)
+    return JsonResponse({'msg': 'interface test task running!'})
 

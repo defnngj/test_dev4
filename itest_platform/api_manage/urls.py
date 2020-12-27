@@ -15,4 +15,7 @@ urlpatterns = [
     path('add_task/', views.add_task),
     path('get_task/<int:tid>/', views.get_task),
     path('edit_task/<int:tid>/', views.edit_task),
+
+    # 任务执行
+    path('run_task/<int:tid>/', views.running_task),
 ]
