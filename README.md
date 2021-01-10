@@ -22,3 +22,9 @@ __运行方式__
 ```shell script
 > python .\manage.py runserver
 ```
+
+项目的重构 
+- 在不改变功能的基础上，重新设计项目结构，更容易扩展，维护，后续开发效率更高
+
+项目的部署：
+wsgi nginx 部署到主机 

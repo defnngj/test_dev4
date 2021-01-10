@@ -314,18 +314,16 @@ def edit_task(request, tid):
 def test_data(tid):
     print("任务有的id-->", tid)
     tcase = TaskCase.objects.filter(task_id=tid)
-    data = [()]
+    data = []
     for c in tcase:
         case = TestCase.objects.get(id=c.case)
-        # if case.method == 1:
-        #     case.method = "get"
-        # if case.method == 2:
-        #     case.method = "post"
         case_tup = (
             case.name,
             case.url,
             case.method,
-            case.request_body
+            case.request_type,
+            case.request_body,
+            case.response_assert,
         )
         data.append(case_tup)
 
@@ -340,7 +338,6 @@ def test_data(tid):
     return data
 
 
-
 def running_task(request, tid):
     """
     运行测试任务
@@ -350,7 +347,15 @@ def running_task(request, tid):
     4. 手动的统计 执行结果，执行信息。
     单元测试框架？？ 单元测试框架 + ddt
     """
-    data = test_data(tid)
-    test_interface.delay(tid, data)
-    return JsonResponse({'msg': 'interface test task running!'})
+    if request.method == "GET":
+        data = test_data(tid)
+        test_interface.delay(tid, data)
+        task = Task.objects.get(id=tid)
+        task.status = 1
+        task.save()
+        return JsonResponse({"code": 10200, "msg": "interface test task running!", "data": []})
+    else:
+        return JsonResponse({"code": 10101, "msg": "请求方法错误", "data": ""})
+
+
 

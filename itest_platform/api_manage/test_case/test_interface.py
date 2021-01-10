@@ -13,16 +13,29 @@ CASE_DIR = os.path.dirname(os.path.abspath(__file__))
 class InterfaceTest(unittest.TestCase):
 
     @parameterized.expand(RunConfig.data)
-    def test_case(self, _, url, method, body):
-        print(url)
-        if method == 1:
+    def test_case(self, _, url, method, request_type, body, response_assert):
+        msg = """接口信息：url:{u}, 
+                 method:{m}, 
+                 request_type:{rt}, 
+                 body:{b},
+                 response_assert:{ra}""".format(u=url, m=method, rt=request_type, b=body, ra=response_assert)
+        if method == 1:  # get
             r = requests.get(url, params=body)
             self.assertEqual(r.status_code, 200)
-        if method == 2:
-            r = requests.post(url, data=body)
-            self.assertEqual(r.status_code, 200)
+            self.assertIn(response_assert, r.text)
+        if method == 2:  # post
+            if request_type == 1:  # from-data
+                r = requests.post(url, data=body)
+                self.assertEqual(r.status_code, 200)
+                self.assertIn(response_assert, r.text)
+            if request_type == 2:  # json
+                r = requests.post(url, json=body)
+                self.assertEqual(r.status_code, 200)
+                self.assertIn(response_assert, r.text)
+            else:
+                print(msg)
         else:
-            pass
+            print(msg)
 
 
 if __name__ == '__main__':

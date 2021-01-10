@@ -10,9 +10,7 @@
         <div class="col-xl-6 col-lg-12 order-lg-2 order-xl-1">
             <div class="card">
                 <div class="card-body">
-                    <a href="/task/add/" class="btn btn-sm btn-link float-right mb-3">添加
-                    </a>
-                    <h4 class="header-title mt-2">任务管理</h4>
+                    <h4 class="header-title mt-2">任务的执行结果</h4>
 
                     <div class="table-responsive">
                         <table class="table table-centered table-nowrap table-hover mb-0 table-striped">
@@ -22,13 +20,19 @@
                                         <h5 class="font-14 my-1 font-weight-normal">名称</h5>
                                     </td>
                                     <td>
-                                        <h5 class="font-14 my-1 font-weight-normal">状态</h5>
+                                        <h5 class="font-14 my-1 font-weight-normal">错误</h5>
                                     </td>
                                     <td>
-                                        <h5 class="font-14 my-1 font-weight-normal">创建时间</h5>
+                                        <h5 class="font-14 my-1 font-weight-normal">失败</h5>
                                     </td>
                                     <td>
-                                        <h5 class="font-14 my-1 font-weight-normal">执行</h5>
+                                        <h5 class="font-14 my-1 font-weight-normal">跳过</h5>
+                                    </td>
+                                    <td>
+                                        <h5 class="font-14 my-1 font-weight-normal">用例</h5>
+                                    </td>
+                                    <td>
+                                        <h5 class="font-14 my-1 font-weight-normal">时间</h5>
                                     </td>
                                     <td>
                                         <h5 class="font-14 my-1 font-weight-normal">操作</h5>
@@ -36,32 +40,28 @@
                                 </tr>
                             <thead>
                             <tbody>
-                                {% for t in tasks %}
+                                {% for r in results %}
                                 <tr>
                                     <td>
-                                        <span class="text-muted font-13">{{ t.name }}</span>
+                                        <span class="text-muted font-13">{{ r.name }}</span>
                                     </td>
                                     <td>
-                                        {% if t.status == 0 %}
-                                            <span class="text-muted font-13">未执行</span>
-                                        {% elif t.status == 1 %}
-                                            <span class="text-muted font-13">执行中</span>
-                                        {% elif t.status == 2 %}
-                                            <span class="text-muted font-13">已完成</span>
-                                        {% else %}
-                                            <span class="text-muted font-13">未知</span>
-                                        {% endif %}
+                                        <span class="text-muted font-13">{{ r.error }}</span>
                                     </td>
                                     <td>
-                                        <span class="text-muted font-13">{{ t.create_time | date:"Y-m-d H:i:s"}}</span>
+                                        <span class="text-muted font-13">{{ r.failure }}</span>
                                     </td>
                                     <td>
-                                        <button class="btn btn-link btn-sm" onclick="run_task({{ t.id }})">执行</button>
-                                        <a class="mb-3" href="/task/results/{{ t.id }}/">执行结果</a>
+                                        <span class="text-muted font-13">{{ r.skipped }}</span>
                                     </td>
                                     <td>
-                                        <a class="mb-3" href="/task/edit/{{ t.id }}/">编辑</a>
-                                        <a class="mb-3" href="/task/delete/{{ t.id }}/">删除</a>
+                                        <span class="text-muted font-13">{{ r.tests }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="text-muted font-13">{{ r.run_time }}</span>
+                                    </td>
+                                    <td>
+                                        <a class="mb-3" target="_blank" href="{{ r.result }}">查看详情</a>
                                     </td>
                                 </tr>
                                 {% endfor %}

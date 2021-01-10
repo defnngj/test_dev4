@@ -8,6 +8,8 @@ urlpatterns = [
     path('add/', views.task_add),
     path('edit/<int:tid>/', views.task_edit),
     path('delete/<int:tid>/', views.task_delete),
+    path('results/<int:tid>/', views.task_results),
+    path('result/<int:rid>/', views.show_result),
     path('running/', views.task_running),
 ]
 

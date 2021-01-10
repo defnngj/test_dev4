@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+	<testsuite errors="0" failures="0" file="test_interface.py" name="test_interface.InterfaceTest-20210110164849" skipped="0" tests="1" time="0.523" timestamp="2021-01-10T16:48:49">
+		<testcase classname="test_interface.InterfaceTest" file="api_manage\test_case\test_interface.py" line="516" name="test_case_0__get_" time="0.523" timestamp="2021-01-10T16:48:49">
+			<system-out>
+<![CDATA[接口数据错误：url:http://httpbin.org/get, 
+                 method:1, 
+                 request_type:1, 
+                 body:{},
+                 response_assert:origin
+]]>			</system-out>
+		</testcase>
+	</testsuite>
+</testsuites>

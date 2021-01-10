@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+	<testsuite errors="0" failures="0" file="test_interface.py" name="test_interface.InterfaceTest-20210110165218" skipped="0" tests="3" time="1.001" timestamp="2021-01-10T16:52:19">
+		<testcase classname="test_interface.InterfaceTest" file="api_manage\test_case\test_interface.py" line="516" name="test_case_0_test_get_" time="0.005" timestamp="2021-01-10T16:52:18">
+			<system-out>
+<![CDATA[接口数据错误：url:http://httpbin.org/get, 
+                 method:3, 
+                 request_type:1, 
+                 body:{},
+                 response_assert:Encoding
+]]>			</system-out>
+		</testcase>
+		<testcase classname="test_interface.InterfaceTest" file="api_manage\test_case\test_interface.py" line="516" name="test_case_1__get_" time="0.502" timestamp="2021-01-10T16:52:19">
+			<system-out>
+<![CDATA[接口数据错误：url:http://httpbin.org/get, 
+                 method:1, 
+                 request_type:1, 
+                 body:{},
+                 response_assert:origin
+]]>			</system-out>
+		</testcase>
+		<testcase classname="test_interface.InterfaceTest" file="api_manage\test_case\test_interface.py" line="516" name="test_case_2__POST_data_" time="0.494" timestamp="2021-01-10T16:52:19">
+			<system-out>
+<![CDATA[接口数据错误：url:http://httpbin.org/post, 
+                 method:2, 
+                 request_type:1, 
+                 body:{
+  "key1": "value"
+},
+                 response_assert:key1
+]]>			</system-out>
+		</testcase>
+	</testsuite>
+</testsuites>
