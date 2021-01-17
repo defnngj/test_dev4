@@ -6,7 +6,7 @@ var getCaseInfo = function(){
     // 调用获取select数据列表
     $.get("/api/get_case_info/"+caseId+"/", {}, 
     function (resp) {
-        if (resp.code == 200) {
+        if (resp.code == 10200) {
             console.log(resp.data.name);
             // 请求的URL
             $("#req_url").val(resp.data.url);

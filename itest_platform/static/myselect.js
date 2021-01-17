@@ -53,7 +53,7 @@ var SelectInit = function (defaultProjectId, defaultModuleId) {
 
         }, 
         function (resp) {
-            if (resp.code == 200) {
+            if (resp.code == 10200) {
                 dataList = resp.data;
                 //遍历项目
                 for (let i = 0; i < dataList.length; i++) {

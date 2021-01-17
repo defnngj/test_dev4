@@ -3,6 +3,8 @@ from django.http import JsonResponse
 from django.forms.models import model_to_dict
 from app_manage.models import Task, TaskCase
 from app_manage.models import TestCase
+from api_manage.common import resp
+from api_manage.tasks import test_interface
 
 
 def add_task(request):
@@ -17,20 +19,20 @@ def add_task(request):
         print("dddd", task_cases, type(task_cases))
 
         if task_name == "":
-            return JsonResponse({"code": 101001, "msg": "task name is null", "data": []})
+            return resp(101001, msg="task name is null", data=[])
 
         cases_list = json.loads(task_cases)
         if cases_list is []:
-            return JsonResponse({"code": 101001, "msg": "select case is null", "data": []})
+            return resp(101001, msg="select case is null", data=[])
         print("cccc", task_cases, type(cases_list))
 
         task = Task.objects.create(name=task_name, describe=task_desc)
         for case in cases_list:
             TaskCase.objects.create(task_id=task.id, case=case)
 
-        return JsonResponse({"code": 10200, "msg": "success", "data": []})
+        return resp(10200, msg="success", data=[])
     else:
-        return JsonResponse({"code": 10101, "msg": "请求方法错误", "data": ""})
+        return resp(10101, msg="请求方法错误", data="")
 
 
 def get_task(request, tid):
@@ -39,18 +41,18 @@ def get_task(request, tid):
     """
     if request.method == "GET":
         if tid == "":
-            return JsonResponse({"code": 101001, "msg": "task id is null", "data": []})
+            return resp(101001, msg="task id is null", data=[])
 
         try:
             task = Task.objects.get(id=tid)
         except Task.DoesNotExist:
-            return JsonResponse({"code": 101002, "msg": "task id error", "data": []})
+            return resp(101002, msg="task id error", data=[])
 
         task_dict = model_to_dict(task)
 
-        return JsonResponse({"code": 10200, "msg": "success", "data": task_dict})
+        return resp(10200, msg="success", data=task_dict)
     else:
-        return JsonResponse({"code": 10101, "msg": "请求方法错误", "data": ""})
+        return resp(10101, msg="请求方法错误", data="")
 
 
 def edit_task(request, tid):
@@ -65,11 +67,11 @@ def edit_task(request, tid):
         print("dddd", task_cases, type(task_cases))
 
         if task_name == "":
-            return JsonResponse({"code": 101001, "msg": "task name is null", "data": []})
+            return resp(101001, msg="task name is null", data=[])
 
         cases_list = json.loads(task_cases)
         if cases_list is []:
-            return JsonResponse({"code": 101001, "msg": "select case is null", "data": []})
+            return resp(101001, msg="select case is null", data=[])
         print("cccc", task_cases, type(cases_list))
 
         task = Task.objects.get(id=tid)
@@ -83,9 +85,9 @@ def edit_task(request, tid):
         for case in cases_list:
             TaskCase.objects.create(task_id=task.id, case=case)
 
-        return JsonResponse({"code": 10200, "msg": "success", "data": []})
+        return resp(10200, msg="success", data=[])
     else:
-        return JsonResponse({"code": 10101, "msg": "请求方法错误", "data": ""})
+        return resp(10101, msg="请求方法错误", data="")
 
 
 def test_data(tid):
@@ -130,7 +132,7 @@ def running_task(request, tid):
         task = Task.objects.get(id=tid)
         task.status = 1
         task.save()
-        return JsonResponse({"code": 10200, "msg": "interface test task running!", "data": []})
+        return resp(10200, msg="interface test task running!", data=[])
     else:
-        return JsonResponse({"code": 10101, "msg": "请求方法错误", "data": ""})
+        return resp(10101, msg="请求方法错误", data="")
 

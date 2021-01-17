@@ -45,7 +45,7 @@ def assert_result(request):
     断言接口返回的结果
     """
     if request.method == "GET":
-        return JsonResponse({"code": 10101, "msg": "请求方法错误", "data": ""})
+        return resp(10101, "请求方法错误")
 
     result = request.POST.get("assert_result", "")
     text = request.POST.get("assert_text", "")
@@ -61,7 +61,7 @@ def select_data(request):
     获取项目/模块的列表，用于select二级菜单的渲染
     """
     if request.method == "POST":
-        return JsonResponse({"code": 10101, "msg": "请求方法错误", "data": ""})
+        return resp(10101, "请求方法错误")
 
     data_list = []
     project = Project.objects.all()
@@ -82,7 +82,7 @@ def select_data(request):
 
         data_list.append(project_dict)
 
-    return JsonResponse({"code": 200, "msg": "assert success", "data": data_list})
+    return resp(msg="assert success", data=data_list)
 
 
 def add_case(request):
@@ -103,21 +103,21 @@ def add_case(request):
         if (req_url == "" or req_method == "" or
                 resp_result == "" or resp_assert == "" or
                 case_module == "" or case_name == ""):
-            return JsonResponse({"code": 10102, "msg": "参数错误", "data": ""})
+            return resp(10102, msg="参数错误", data="")
 
         if req_method == "GET":
             method = 1
         elif req_method == "POST":
             method = 2
         else:
-            return JsonResponse({"code": 10103, "msg": "请求方法不支持", "data": ""})
+            return resp(10103, msg="请求方法不支持", data="")
 
         if req_type == "data":
             type_ = 1
         elif req_type == "post":
             type_ = 2
         else:
-            return JsonResponse({"code": 10103, "msg": "请求参数类型不支持", "data": ""})
+            return resp(10103, "请求参数类型不支持")
 
         if case_id == "":
             # 创建用例
@@ -145,9 +145,9 @@ def add_case(request):
             case.module_id = case_module
             case.save()
 
-        return JsonResponse({"code": 200, "msg": "add success", "data": []})
+        return resp(msg="add success")
     else:
-        return JsonResponse({"code": 10101, "msg": "请求方法错误", "data": ""})
+        return resp(10101, "请求方法错误")
 
 
 def get_case_info(request, cid):
@@ -158,18 +158,18 @@ def get_case_info(request, cid):
         try:
             case = TestCase.objects.get(id=cid)
         except TestCase.DoesNotExist:
-            return JsonResponse({"code": 10102, "msg": "用例信息不存在", "data": []})
+            return resp(10102, msg="用例信息不存在", data=[])
 
         try:
             module = Module.objects.get(id=case.module_id)
         except Module.DoesNotExist:
-            return JsonResponse({"code": 10103, "msg": "模块信息不存在", "data": []})
+            return resp(10103, msg="模块信息不存在", data=[])
 
         case_dict = model_to_dict(case)
         case_dict["project"] = module.project_id
-        return JsonResponse({"code": 200, "msg": "add success", "data": case_dict})
+        return resp(200, msg="add success", data=case_dict)
     else:
-        return JsonResponse({"code": 10101, "msg": "请求方法错误", "data": ""})
+        return resp(10101, msg="请求方法错误", data="")
 
 
 def get_case_tree(request, tid):
@@ -226,6 +226,6 @@ def get_case_tree(request, tid):
 
                 project_dict["children"].append(module_dict)
             data_list.append(project_dict)
-        return JsonResponse({"code": 10200, "msg": "success", "data": data_list})
+        return resp(10200, msg="success", data=data_list)
     else:
-        return JsonResponse({"code": 10101, "msg": "请求方法错误", "data": ""})
+        return resp(10101, msg="请求方法错误")
