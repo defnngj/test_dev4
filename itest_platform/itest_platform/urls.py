@@ -15,31 +15,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from project_manage.views import login_views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('hello/', login_views.hello),
 
-    path('', login_views.index),
-    path('index/', login_views.index),
-    path('accounts/login/', login_views.index),
+    # app
+    path("", include('app_manage.urls')),
 
-    # path('manage/', views.manage),
-    path("manage/", include('project_manage.urls')),
-
-    path('logout/', login_views.logout),
-
-    # 用例管理
-    path("case/", include('case_manage.urls')),
-
-    # 任务管理
-    path("task/", include('task_manage.urls')),
-    
     # 接口的管理
     path("api/", include('api_manage.urls')),
 
-
 ]
+
+
+
+
+
 

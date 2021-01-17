@@ -1,0 +1,72 @@
+{% extends "navigation.html" %}
+
+{% block navigation %}
+<!-- 这个一部分属于 manage2.html 文件 -->
+<!-- Start Content-->
+<div class="container-fluid">
+
+    <div class="row" style="margin-top: 45px;">
+        <div class="col-xl-6 col-lg-12 order-lg-2 order-xl-1">
+            <div class="card">
+                <div class="card-body">
+                    <a href="/module/add/" class="btn btn-sm btn-link float-right mb-3">添加
+                    </a>
+                    <h4 class="header-title mt-2">模块管理</h4>
+
+                    <div class="table-responsive">
+                        <table class="table table-centered table-nowrap table-hover mb-0 table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <td>
+                                        <h5 class="font-14 my-1 font-weight-normal">名称</h5>
+                                    </td>
+                                    <td>
+                                        <h5 class="font-14 my-1 font-weight-normal">描述</h5>
+                                    </td>
+                                    <td>
+                                        <h5 class="font-14 my-1 font-weight-normal">项目</h5>
+                                    </td>
+                                    <td>
+                                        <h5 class="font-14 my-1 font-weight-normal">创建时间</h5>
+                                    </td>
+                                    <td>
+                                        <h5 class="font-14 my-1 font-weight-normal">操作</h5>
+                                    </td>
+                                </tr>
+                            <thead>
+                            <tbody>
+                                {% for m in modules %}
+                                <tr>
+                                    <td>
+                                        <span class="text-muted font-13">{{ m.name }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="text-muted font-13">{{ m.describe }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="text-muted font-13">{{ m.project }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="text-muted font-13">{{ m.create_time | date:"Y-m-d H:i:s"}}</span>
+                                    </td>
+                                    <td>
+                                        <a class="mb-3" href="/module/edit/{{ m.id }}/">编辑</a>
+                                        <a class="mb-3" href="/module/delete/{{ m.id }}/">删除</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div> <!-- end table-responsive-->
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col-->
+
+    </div>
+    <!-- end row -->
+
+</div>
+<!-- container -->
+
+{% endblock %}

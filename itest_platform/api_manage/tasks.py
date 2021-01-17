@@ -6,8 +6,8 @@ import unittest
 import xmlrunner
 from api_manage.test_case.config import RunConfig
 from xml.dom.minidom import parse
-from task_manage.models import TestResult
-from task_manage.models import Task
+from app_manage.models import TestResult
+from app_manage.models import Task
 
 API_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 

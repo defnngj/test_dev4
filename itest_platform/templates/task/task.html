@@ -1,0 +1,101 @@
+{% extends "navigation.html" %}
+
+{% block navigation %}
+<!-- 这个一部分属于 manage2.html 文件 -->
+<!-- Start Content-->
+<div class="container-fluid">
+
+    <div class="row" style="margin-top: 45px;">
+        <div class="col-xl-6 col-lg-12 order-lg-2 order-xl-1">
+            <div class="card">
+                <div class="card-body">
+                    <a href="/task/add/" class="btn btn-sm btn-link float-right mb-3">添加
+                    </a>
+                    <h4 class="header-title mt-2">任务管理</h4>
+
+                    <div class="table-responsive">
+                        <table class="table table-centered table-nowrap table-hover mb-0 table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <td>
+                                        <h5 class="font-14 my-1 font-weight-normal">名称</h5>
+                                    </td>
+                                    <td>
+                                        <h5 class="font-14 my-1 font-weight-normal">状态</h5>
+                                    </td>
+                                    <td>
+                                        <h5 class="font-14 my-1 font-weight-normal">创建时间</h5>
+                                    </td>
+                                    <td>
+                                        <h5 class="font-14 my-1 font-weight-normal">执行</h5>
+                                    </td>
+                                    <td>
+                                        <h5 class="font-14 my-1 font-weight-normal">操作</h5>
+                                    </td>
+                                </tr>
+                            <thead>
+                            <tbody>
+                                {% for t in tasks %}
+                                <tr>
+                                    <td>
+                                        <span class="text-muted font-13">{{ t.name }}</span>
+                                    </td>
+                                    <td>
+                                        {% if t.status == 0 %}
+                                            <span class="text-muted font-13">未执行</span>
+                                        {% elif t.status == 1 %}
+                                            <span class="text-muted font-13">执行中</span>
+                                        {% elif t.status == 2 %}
+                                            <span class="text-muted font-13">已完成</span>
+                                        {% else %}
+                                            <span class="text-muted font-13">未知</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <span class="text-muted font-13">{{ t.create_time | date:"Y-m-d H:i:s"}}</span>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-link btn-sm" onclick="run_task({{ t.id }})">执行</button>
+                                        <a class="mb-3" href="/task/results/{{ t.id }}/">执行结果</a>
+                                    </td>
+                                    <td>
+                                        <a class="mb-3" href="/task/edit/{{ t.id }}/">编辑</a>
+                                        <a class="mb-3" href="/task/delete/{{ t.id }}/">删除</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div> <!-- end table-responsive-->
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col-->
+
+    </div>
+    <!-- end row -->
+
+</div>
+<!-- container -->
+{% load static %}
+<script src="https://cdn.bootcss.com/jquery/1.4.2/jquery.js"></script>
+<script type="text/javascript">
+
+    function run_task(tid) {
+        console.log(tid)
+        // 运行任务
+        $.get("/api/run_task/"+tid+"/", {},
+            function (resp) {
+                if (resp.code == 10200) {
+                    window.alert("任务开始执行");
+                    location.reload();
+                } else {
+                    window.alert(resp.msg);
+                }
+            });
+        
+    }
+
+</script>
+
+{% endblock %}
