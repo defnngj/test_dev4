@@ -21,10 +21,9 @@ def index(request):
             return render(request, "login.html", {"error": "The username or password is empty"})
 
         user = auth.authenticate(username=username, password=password)
-        print("==>", user)
         if user is not None:
             auth.login(request, user)  # 到数据库写 session_key
-            response = HttpResponseRedirect("/project/")
+            response = HttpResponseRedirect("/project/")   # 302
             # response.set_cookie("user", username, 3600)
             request.session['user'] = username
             return response

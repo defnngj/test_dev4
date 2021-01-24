@@ -1,4 +1,3 @@
-import unittest
 from django.test import TestCase
 from app_manage.models import Project
 

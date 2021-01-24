@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'fwe^4uwl)mgijvpu8t00#t+xgwcq_)z0@492rkbk$ejnl)$j7+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -132,12 +132,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# if DEBUG is True:
+#     # 调试时候的静态路径
+#     STATICFILES_DIRS = [
+#         os.path.join(BASE_DIR, "static"),
+#     ]
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
-
-# STATIC_ROOT = os.path.join(BASE_DIR, "static")
+# 项目部署时候的静态路径
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # Celery settings
 
